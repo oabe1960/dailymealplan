@@ -3,148 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abe Family Meal Plan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Family Meal Plan (Yoruba/Christian)</title>
     <style>
+        :root {
+            --primary: #2E7D32; /* Green for growth/freshness */
+            --accent: #E65100; /* Orange for vibrancy/palm oil */
+            --bg: #F5F7FA;
+            --card-bg: #FFFFFF;
+        }
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-bottom: 60px;
         }
         header {
-            background-color: #007bff;
-            color: white;
             text-align: center;
-            padding: 20px 0;
+            margin-bottom: 30px;
         }
         h1 {
-            margin: 0;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
         }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
         }
-        .meal {
-            border-bottom: 1px solid #ccc;
-            padding: 15px 0;
-        }
-        .meal:last-child {
-            border-bottom: none;
-        }
-        .meal h2 {
-            color: #007bff;
-        }
-        .meal .ingredients, .meal .preparation, .meal .sourcing {
-            margin-top: 10px;
-        }
-        .meal .ingredients ul, .meal .preparation ol {
-            margin-left: 20px;
-        }
-        footer {
-            text-align: center;
+        .baby-note {
+            background-color: #E3F2FD;
+            border: 1px solid #BBDEFB;
+            color: #0D47A1;
             padding: 10px;
-            background-color: #007bff;
-            color: white;
-            position: relative;
-            bottom: 0;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Card Styles */
+        .day-card {
+            background: var(--card-bg);
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border-left: 6px solid var(--primary);
+            transition: transform 0.2s;
+        }
+        .day-card:active {
+            transform: scale(0.98);
+        }
+
+        /* Image Styling */
+        .meal-image {
             width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Dropdown Styles */
+        details {
+            width: 100%;
+        }
+        summary {
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1em;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 300;
+        }
+        details[open] summary::after {
+            content: '-';
+        }
+        
+        .day-label {
+            display: block;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        /* Inner Content */
+        .meal-content {
+            padding: 20px;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+            animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        h3:first-of-type { margin-top: 0; }
+
+        ul, ol { margin: 0; padding-left: 20px; margin-bottom: 15px; font-size: 0.95rem; }
+        li { margin-bottom: 6px; line-height: 1.6; }
+
+        /* Sourcing Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 700;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .src-african { background-color: #FFF3E0; color: #E65100; border: 1px solid #FFE0B2; }
+        .src-costco { background-color: #E8F5E9; color: #2E7D32; border: 1px solid #C8E6C9; }
+        .src-walmart { background-color: #F3E5F5; color: #6A1B9A; border: 1px solid #E1BEE7; }
+
+        /* Toddler Note */
+        .toddler-tip {
+            background-color: #FFF8E1;
+            border-left: 4px solid #FFC107;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Abe Family Meal Plan</h1>
+        <h1>Weekly Family Menu</h1>
+        <div class="subtitle">Sun (Sunday Rice) &rarr; Sat (Light Dinner)</div>
     </header>
-    
-    <div class="container">
-        <div class="meal">
-            <h2>Breakfast: Akara and Pap</h2>
-            <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>Black-eyed peas</li>
-                    <li>Onions</li>
-                    <li>Pepper</li>
-                    <li>Salt</li>
-                    <li>Oil for frying</li>
-                </ul>
-            </div>
-            <div class="preparation">
-                <strong>Preparation:</strong>
-                <ol>
-                    <li>Soak black-eyed peas overnight and peel.</li>
-                    <li>Blend with onions and pepper until smooth.</li>
-                    <li>Season with salt and deep-fry spoonfuls in hot oil until golden brown.</li>
-                </ol>
-            </div>
-            <div class="sourcing">
-                <strong>Sourcing:</strong>
-                <p>Available at local markets or grocery stores.</p>
-            </div>
-        </div>
 
-        <div class="meal">
-            <h2>Lunch: Jollof Rice with Grilled Chicken</h2>
-            <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>Rice</li>
-                    <li>Tomatoes</li>
-                    <li>Onions</li>
-                    <li>Bell peppers</li>
-                    <li>Chicken</li>
-                    <li>Spices</li>
-                </ul>
-            </div>
-            <div class="preparation">
-                <strong>Preparation:</strong>
-                <ol>
-                    <li>Cook blended tomatoes, onions, and peppers in oil.</li>
-                    <li>Add rice and water, cook until rice is tender.</li>
-                    <li>Season and serve with grilled chicken.</li>
-                </ol>
-            </div>
-            <div class="sourcing">
-                <strong>Sourcing:</strong>
-                <p>Available at supermarkets or local farmers' markets.</p>
-            </div>
-        </div>
-
-        <div class="meal">
-            <h2>Dinner: Efo Riro (Vegetable Soup) with Pounded Yam</h2>
-            <div class="ingredients">
-                <strong>Ingredients:</strong>
-                <ul>
-                    <li>Spinach</li>
-                    <li>Tomatoes</li>
-                    <li>Onions</li>
-                    <li>Pepper</li>
-                    <li>Meat (beef or chicken)</li>
-                    <li>Pounded yam</li>
-                </ul>
-            </div>
-            <div class="preparation">
-                <strong>Preparation:</strong>
-                <ol>
-                    <li>Cook meat and blend tomatoes, onions, and peppers.</li>
-                    <li>Add the blended mix to the meat and simmer.</li>
-                    <li>Add spinach and cook until wilted. Serve with pounded yam.</li>
-                </ol>
-            </div>
-            <div class="sourcing">
-                <strong>Sourcing:</strong>
-                <p>Available at African grocery stores or local markets.</p>
-            </div>
-        </div>
+    <div class="baby-note">
+        <strong>🍼 Baby Note (3 Month Old):</strong> Baby is exclusively on breastmilk/formula. The "Mom Tips" below focus on nutritious, lactation-friendly ingredients (Spinach, Pap, Oats).
     </div>
 
-    <footer>
-        <p>© 2026 Abe Family Meal Plan</p>
-    </footer>
-</body>
-</html>
+    <div class="day-card">
+        <img src="https://images.unsplash.com/photo-1543353071-87dbfd5a93d0?w=800&q=80" alt="Jollof Rice" class="meal-content-img meal-image">
+        <details>
+            <summary>
+                <div>
+                    <span class="day-label">Sunday</span>
+                    Sunday Jollof Rice & Fried Chicken
+                </div>
+            </summary>
+            <div class="meal-content">
+                <p>The post-church classic. Smoky party jollof with fried chicken and plantains (dodo).</p>
+
+                <h3>🛒 Sourcing</h3>
+                <div>
+                    <span class="badge src-costco">Costco: Rice (Parboiled), Chicken Drumsticks, Oil, Tomato Paste</span>
+                    <span class="badge src-african">African Store: Scotch Bonnet (Ata Rodo), Thyme, Curry, Maggi</span>
+                </div>
+
+                <h3>📝 Recipe</h3>
+                <ol>
+                    <li>Blend tomatoes, onions, and scotch bonnet peppers. Boil mixture until dry.</li>
+                    <li>Fry sliced onions in oil, add tomato paste and bay leaves. Fry for 5 mins.</li>
+                    <li>Add the boiled pepper mix, curry, thyme, Maggi, and meat stock. Cook for 15 mins.</li>
+                    <li>Wash rice thoroughly. Add to the pot. Cover with foil to trap steam ("Party Jollof" secret).</li>
+                    <li>Cook on low heat until soft. Serve with fried plantain and chicken.</li>
+                </ol>
+
+                <div class="toddler-tip">
+                    <strong>👶 3yo Tip:</strong> Jollof can be spicy. Mix a small portion of the tomato stew <em>before</em> adding the scotch bonnet for the toddler, or mix their rice with mixed veggies instead of spicy sauce.
+                </div>
+            </div>
+        </details>
+    </div>
+
+    <div class="day-card">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80" alt="Vegetable Salad" class="meal-image">
+        <details>
+            <summary>
+                <div>
+                    <span class="day-label">Monday</span>
+                    Boiled Yam & Garden Egg Stew
+                </div>
+            </summary>
+            <div class="meal-content">
+                <p>A great start to the week. Garden eggs (Igba) are nutritious and lighter than tomato stew.</p>
+
+                <h3>🛒 Sourcing</h3>
+                <div>
+                    <span class="badge src-african">African Store: Puna Yam, Garden Eggs, Iru (Locust Beans), Palm Oil</span>
+                    <span class="badge src-walmart">Walmart: Mackerel (Titus Fish), Onions</span>
+                </div>
+
+                <h3>📝 Recipe</h3>
+                <ol>
+                    <li>Peel and cut yam into chunks. Boil with salt and a pinch of sugar until soft.</li>
+                    <li>Boil Garden Eggs until soft, then mash roughly.</li>
+                    <li>Bleach palm oil slightly, fry onions and locust beans (Iru).</li>
+                    <li>Add blended peppers (mild) and the mashed garden eggs. Add flaked smoked fish/mackerel.</li>
+                    <li>Simmer for 10 minutes.</li>
+                </ol>
+
+                <div class="toddler-tip">
+                    <strong>👶 3yo Tip:</strong> Mash the yam with a little butter for the toddler. Ensure all fish bones are removed meticulously.
+                </div>
+            </div>
+        </details>
+    </div>
